@@ -1,0 +1,111 @@
+/* ================= CSS RESET & ANIMATIONS ================= */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px rgba(77, 168, 218, 0.2); }
+    50% { box-shadow: 0 0 15px rgba(77, 168, 218, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(77, 168, 218, 0.2); }
+}
+
+/* ================= BASE STYLES ================= */
+body {
+    background-color: #050a11; /* Blue-black super pekat */
+    color: #e0e6ed;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #0b1320 0%, #152238 100%);
+    padding: 25px 0;
+    text-align: center;
+    border-bottom: 2px solid #2a3f5f;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+header h1 {
+    color: #4da8da;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(77, 168, 218, 0.3);
+}
+
+nav { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+nav a {
+    color: #a0b2c6; text-decoration: none; font-weight: bold;
+    padding: 10px 20px; border-radius: 30px; transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+nav a:hover {
+    color: #fff; background-color: rgba(77, 168, 218, 0.1);
+    border-color: #4da8da; text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+/* ================= CONTAINER & CARDS ================= */
+.container {
+    max-width: 950px; margin: 40px auto; padding: 40px;
+    background-color: rgba(17, 26, 44, 0.9);
+    border-radius: 12px; border: 1px solid #2a3f5f;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+h2, h3 { color: #4da8da; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #2a3f5f; }
+
+/* ================= TABLE ================= */
+table { width: 100%; border-collapse: collapse; margin-top: 20px; overflow: hidden; border-radius: 8px; }
+table, th, td { border: none; }
+th, td { padding: 15px; text-align: left; border-bottom: 1px solid #2a3f5f; }
+th { background-color: #1e3050; color: #4da8da; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; }
+tr { transition: all 0.3s ease; }
+tr:hover { background-color: #1a2942; transform: scale(1.01); }
+
+/* ================= FORMS ================= */
+form { display: flex; flex-direction: column; gap: 15px; }
+label { font-weight: bold; color: #4da8da; font-size: 0.9em; text-transform: uppercase; }
+input, select, textarea {
+    width: 100%; padding: 15px; border: 1px solid #2a3f5f;
+    border-radius: 8px; background-color: #0b1320; color: #fff;
+    transition: all 0.3s ease;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none; border-color: #4da8da; box-shadow: 0 0 10px rgba(77, 168, 218, 0.3);
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    background: linear-gradient(135deg, #4da8da 0%, #2a75a3 100%);
+    color: #fff; padding: 12px 25px; border: none; border-radius: 8px;
+    cursor: pointer; font-weight: bold; text-decoration: none;
+    transition: all 0.3s ease; text-align: center; text-transform: uppercase; letter-spacing: 1px;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(77, 168, 218, 0.4); }
+.btn-danger { background: linear-gradient(135deg, #d9534f 0%, #a83835 100%); }
+.btn-danger:hover { box-shadow: 0 8px 15px rgba(217, 83, 79, 0.4); }
+
+.badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8em; font-weight: bold; }
+.badge-hilang { background-color: rgba(217, 83, 79, 0.2); color: #ff6b68; border: 1px solid #d9534f; }
+.badge-temu { background-color: rgba(77, 168, 218, 0.2); color: #72c5ef; border: 1px solid #4da8da; }
+
+/* Profil Tim Animasi */
+.profil-card {
+    background: #152238; padding: 30px; border-radius: 12px;
+    border: 1px solid #2a3f5f; transition: all 0.4s ease; width: 30%; text-align: center;
+}
+.profil-card:hover {
+    transform: translateY(-10px); border-color: #4da8da;
+    box-shadow: 0 10px 20px rgba(77, 168, 218, 0.2);
+}
