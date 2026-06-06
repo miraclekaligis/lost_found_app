@@ -1,0 +1,21 @@
+# ====================================================================
+# LOSTTRACK CORE ENGINE - CONFIGURATION & URL REWRITE
+# ====================================================================
+
+# Aktifkan Engine Rewrite URL
+RewriteEngine On
+
+# 1. HILANGKAN EKSTENSI .PHP DARI URL
+# Memastikan request bukan berupa direktori asli
+RewriteCond %{REQUEST_FILENAME} !-d
+# Memastikan request dengan tambahan .php merupakan file yang valid
+RewriteCond %{REQUEST_FILENAME}\.php -f
+# Sembunyikan ekstensi .php secara internal
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# 2. OPTIMASI KEAMANAN (Opsional tapi Sangat Direkomendasikan)
+# Mencegah pengguna mengintip isi folder/direktori secara langsung
+Options -Indexes
+
+# Mengatur default halaman utama jika akses ke root folder
+DirectoryIndex index.php

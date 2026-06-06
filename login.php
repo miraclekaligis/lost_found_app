@@ -1,16 +1,46 @@
 <?php
 require 'koneksi.php';
-if (isset($_SESSION['login'])) { header("Location: dashboard.php"); exit; }
+
+// Jika sudah login, tendang ke halaman yang sesuai dengan role-nya
+if (sudahLogin()) {
+    if (isAdmin()) {
+        header("Location: dashboard.php");
+    } else {
+        header("Location: index.php");
+    }
+    exit;
+}
 
 $error = false;
+
 if (isset($_POST['login'])) {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
-    if (mysqli_num_rows($result) === 1) {
-        $_SESSION['login'] = true;
-        header("Location: dashboard.php"); exit;
+    // Gunakan trim() untuk menghapus spasi tidak sengaja di awal/akhir input
+    $usernameInput = trim($_POST['username'] ?? '');
+    $passwordInput = $_POST['password'] ?? '';
+
+    $stmt = mysqli_prepare($conn, "SELECT id, username, password, role FROM users WHERE username = ?");
+    mysqli_stmt_bind_param($stmt, "s", $usernameInput);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        if (password_verify($passwordInput, $row['password'])) {
+            // Regenerate session ID — cegah session fixation
+            session_regenerate_id(true);
+
+            $_SESSION['login']    = true;
+            $_SESSION['user_id']  = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role']     = $row['role'];
+
+            // Admin ke dashboard, member ke beranda
+            if ($row['role'] === 'admin') {
+                header("Location: dashboard.php");
+            } else {
+                header("Location: index.php");
+            }
+            exit;
+        }
     }
     $error = true;
 }
@@ -19,26 +49,28 @@ if (isset($_POST['login'])) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Sistem Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LostTrack</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>Otentikasi Sistem</h1>
-        <nav><a href="index.php">Kembali ke Beranda</a></nav>
-    </header>
-    <div class="container" style="max-width: 450px; text-align: center;">
-        <h2>Area Admin</h2>
-        <?php if ($error) : ?>
-            <div class="alert badge-hilang" style="padding:15px; margin-bottom:20px;">Username atau Password salah!</div>
+<body class="body-login">
+    <div class="container-login" style="max-width:450px; text-align:center;">
+        <h2>🔐 Login</h2>
+        <?php if ($error): ?>
+            <div class="alert badge-hilang" style="padding:15px; margin-bottom:20px; border-radius:8px;">
+                ⚠️ Username atau password salah!
+            </div>
         <?php endif; ?>
-        <form action="" method="POST" style="text-align: left;">
+        <form action="" method="POST" style="text-align:left;">
             <label>Username</label>
-            <input type="text" name="username" placeholder="Masukkan username admin..." required>
+            <input type="text" name="username" placeholder="Masukkan username..." required autocomplete="off">
             <label>Password</label>
             <input type="password" name="password" placeholder="Masukkan password..." required>
-            <button type="submit" name="login" class="btn" style="margin-top: 10px;">Login Dashboard</button>
+            <button type="submit" name="login" class="btn" style="margin-top:10px; width:100%;">Login</button>
         </form>
+        <div class="auth-link" style="margin-top: 15px;">
+            Belum punya akun? <a href="register">Daftar Sekarang</a>
+        </div>
     </div>
     <script src="assets/js/script.js"></script>
 </body>
