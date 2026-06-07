@@ -64,7 +64,7 @@ if (isset($_POST['verify'])) {
         </form>
         
         <div class="auth-link" style="margin-top: 20px;">
-            Salah memasukkan email? <a href="register.php" style="text-decoration: underline;">Kembali</a>
+            Salah memasukkan email? <a href="register" style="text-decoration: underline;">Kembali</a>
         </div>
     </div>
 </body>

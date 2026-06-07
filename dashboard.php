@@ -285,7 +285,6 @@ if ($kode === 'tambah') {
 
     <footer class="footer-copyright">
             <p>&copy; 2026 <span class="brand-glow">LostTrack</span> System. All Rights Reserved.</p>
-            <p class="footer-sub">Designed & Engineered by Ibren, Miracle, Heavenly, and Anggreini</p>
         </footer>
 
     </div>

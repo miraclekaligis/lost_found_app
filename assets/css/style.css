@@ -3,9 +3,9 @@
     --bg-main: #060c16;
     --bg-card: rgba(15, 27, 49, 0.75);
     --bg-input: #0a1424;
-    --primary: #00f2fe; /* Neon Cyan */
+    --primary: #00f2fe;
     --primary-glow: rgba(0, 242, 254, 0.3);
-    --secondary: #4facfe; /* Deep Blue Accent */
+    --secondary: #4facfe;
     --text-main: #f5f8fc;
     --text-muted: #8fa0b5;
     --border-color: rgba(79, 172, 254, 0.25);
@@ -29,8 +29,6 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    
-    /* Mengaktifkan susunan vertikal agar footer otomatis presisi di bawah */
     display: flex;
     flex-direction: column;
 }
@@ -48,6 +46,11 @@ body {
 @keyframes scaleIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin-ring {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* ================= NAVIGATION HEADER ================= */
@@ -127,6 +130,7 @@ body {
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
+    z-index: 1001;
 }
 
 .hamburger span {
@@ -136,12 +140,24 @@ body {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ================= MAIN WRAPPER SYSTEM ================= */
 .main-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 80px; /* Memberikan ruang aman di bawah fixed navbar */
+    margin-top: 80px; 
 }
 
 /* ================= CONTAINERS & CORE WORKSPACES ================= */
@@ -166,6 +182,220 @@ h2, h3 {
     padding-bottom: 12px; 
     border-bottom: 1px solid var(--border-color);
     letter-spacing: 0.5px;
+}
+
+/* ================= PROFILE CARDS GRID ================= */
+.team-section {
+    text-align: center;
+}
+
+.team-description {
+    color: var(--text-muted); 
+    margin-bottom: 40px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    justify-content: center;
+}
+
+.profil-card {
+    background: rgba(20, 35, 61, 0.4); 
+    padding: 35px 25px; 
+    border-radius: 16px;
+    border: 1px solid var(--border-color); 
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease; 
+    width: 100%; 
+    text-align: center;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.profil-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), #a78bfa);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profil-card:hover::before {
+    opacity: 1;
+}
+
+.profil-card:hover {
+    transform: translateY(-8px); 
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.15);
+}
+
+.profil-name {
+    color: var(--text-main);
+    font-weight: 700;
+    border: none; 
+    padding: 0; 
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.profil-role {
+    color: var(--secondary); 
+    font-weight: bold; 
+    font-size: 0.9em;
+}
+
+/* --- Profile Photo Styles --- */
+.profil-photo-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 16px auto;
+}
+
+.profil-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+}
+
+.profil-card:hover .profil-photo {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(79, 172, 254, 0.45);
+}
+
+.profil-photo-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    background: #00e676;
+    border: 3px solid rgba(20, 35, 61, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+}
+
+.profil-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--primary);
+    border-right-color: var(--primary);
+    animation: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.profil-card:hover .profil-photo-wrapper::before {
+    animation: spin-ring 1.5s linear infinite;
+    opacity: 1;
+}
+
+/* ================= TEAM HERO SECTION ================= */
+.team-hero {
+    text-align: center;
+    padding: 50px 20px 10px;
+}
+
+.team-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    text-shadow: 0 0 8px var(--primary-glow);
+}
+
+.team-hero h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 8px;
+    line-height: 1.2;
+    border: none;
+    padding: 0;
+}
+
+.team-hero h2 span {
+    background: linear-gradient(135deg, var(--primary), var(--secondary), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.team-hero-tagline {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+    font-style: italic;
+}
+
+.team-hero-description {
+    font-size: 0.92rem;
+    color: rgba(143, 160, 181, 0.7);
+    max-width: 620px;
+    margin: 0 auto 10px;
+    line-height: 1.7;
+}
+
+.team-hero-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.stack-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.stack-chip:hover {
+    border-color: rgba(0, 242, 254, 0.35);
+    color: var(--primary);
+    background: rgba(0, 242, 254, 0.04);
+}
+
+.team-divider {
+    width: 60px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    margin: 30px auto 10px;
+    border: none;
 }
 
 /* ================= MODERN COMPLEX TABLES ================= */
@@ -301,32 +531,6 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid rgba(0, 242, 254, 0.3); 
 }
 
-/* ================= PROFILE CARDS GRID ================= */
-.container style + div, 
-div[style*="display: flex"] {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-    gap: 25px !important;
-    justify-content: center;
-}
-
-.profil-card {
-    background: rgba(20, 35, 61, 0.4); 
-    padding: 35px 25px; 
-    border-radius: 16px;
-    border: 1px solid var(--border-color); 
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease; 
-    width: 100% !important; 
-    text-align: center;
-    backdrop-filter: blur(5px);
-}
-
-.profil-card:hover {
-    transform: translateY(-8px); 
-    border-color: var(--primary);
-    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.15);
-}
-
 /* ================= UNIQUE AUTH STYLING ================= */
 .auth-page-body {
     display: flex !important; 
@@ -339,7 +543,7 @@ div[style*="display: flex"] {
 .auth-container {
     max-width: 450px; 
     width: 90%; 
-    margin: 40px auto; /* Mengecilkan margin atas-bawah agar pas di layar saat register */
+    margin: 40px auto; 
     padding: 45px 35px; 
     background-color: var(--bg-card);
     border-radius: 24px; 
@@ -706,7 +910,7 @@ div[style*="display: flex"] {
     font-size: 0.95rem;
 }
 
-/* ================= SMART RESPONSIVE INTERFACE ================= */
+/* ================= SMART RESPONSIVE — TABLET ================= */
 @media (max-width: 768px) {
     .header {
         padding: 1rem 1.5rem;
@@ -721,15 +925,18 @@ div[style*="display: flex"] {
         top: 70px;
         right: -100%;
         width: 70%;
+        max-width: 300px;
         height: calc(100vh - 70px);
-        background: rgba(10, 20, 38, 0.95);
+        background: rgba(10, 20, 38, 0.97);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         align-items: flex-start;
         gap: 0;
         padding: 2rem;
         transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         border-left: 1px solid var(--border-color);
+        z-index: 1000;
     }
 
     .nav-menu a {
@@ -748,35 +955,583 @@ div[style*="display: flex"] {
         right: 0;
     }
 
+    .main-wrapper {
+        margin-top: 70px;
+    }
+
     .container, .container-login {
-        width: 92%;
-        padding: 25px 20px;
-        margin-top: 100px;
+        width: 94%;
+        padding: 25px 18px;
+        margin: 25px auto;
+        border-radius: 12px;
+    }
+
+    h2 { 
+        font-size: 1.3rem; 
+        margin-bottom: 18px; 
+    }
+
+    h3 { 
+        font-size: 1.1rem; 
+        margin-bottom: 15px; 
+    }
+
+    /* Tabel */
+    .container table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     th, td {
         padding: 12px 14px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
+        white-space: nowrap;
     }
 
-    .posts-container {
-        padding: 0 10px;
-        margin-top: 100px;
+    /* Form laporan */
+    .container-report-wrapper {
+        padding: 0 12px;
+        margin: 20px auto 0;
     }
 
-    /* Penyesuaian responsif komponen form laporan */
+    .report-card-container {
+        padding: 22px 16px;
+        border-radius: 14px;
+        margin-bottom: 30px;
+    }
+
+    .report-card-title {
+        font-size: 1.25rem;
+    }
+
     .input-row-grid {
         grid-template-columns: 1fr;
         gap: 0;
     }
+
+    .upload-area {
+        min-height: 150px;
+    }
+
+    .upload-text-title {
+        font-size: 0.9rem;
+    }
+
+    .upload-text-sub {
+        font-size: 0.75rem;
+    }
+
+    /* Postingan */
+    .posts-container {
+        padding: 0 10px;
+        margin: 20px auto;
+    }
+
+    .post-card {
+        border-radius: 14px;
+        margin-bottom: 20px;
+    }
+
+    .post-header {
+        padding: 14px 16px;
+    }
+
+    .post-content {
+        padding: 16px;
+    }
+
+    .post-content p {
+        font-size: 0.9rem;
+    }
+
+    .post-image img {
+        max-height: 300px;
+    }
+
+    /* Profil tim */
+    .team-hero {
+        padding: 30px 10px 5px;
+    }
+
+    .team-hero h2 {
+        font-size: 1.7rem;
+    }
+
+    .team-hero-tagline {
+        font-size: 0.95rem;
+    }
+
+    .team-hero-description {
+        font-size: 0.85rem;
+    }
+
+    .team-hero-badge {
+        font-size: 10px;
+        padding: 6px 16px;
+        letter-spacing: 1px;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .profil-card {
+        padding: 25px 14px;
+    }
+
+    .profil-photo-wrapper {
+        width: 85px;
+        height: 85px;
+    }
+
+    .profil-photo {
+        width: 85px;
+        height: 85px;
+    }
+
+    .profil-name {
+        font-size: 0.95rem;
+    }
+
+    .profil-role {
+        font-size: 0.78rem;
+    }
+
+    /* Panduan */
+    .guideline-item {
+        padding: 14px;
+    }
+
+    .guideline-text {
+        font-size: 0.88rem;
+    }
+
+    /* Auth */
+    .auth-container {
+        padding: 30px 22px;
+        border-radius: 18px;
+    }
+
+    .auth-container h2 {
+        font-size: 1.7rem;
+    }
+
+    /* Footer */
+    .footer-copyright {
+        margin-top: 30px;
+        padding: 18px 15px;
+    }
+
+    .footer-copyright p {
+        font-size: 0.8rem;
+    }
+
+    .footer-copyright .footer-sub {
+        font-size: 0.72rem;
+    }
+
+    /* Chatbot */
+    .chatbot-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 54px;
+        height: 54px;
+        font-size: 22px;
+    }
+
+    .chatbot-window {
+        right: 12px;
+        bottom: 88px;
+        width: calc(100vw - 24px);
+        max-width: 380px;
+        height: 460px;
+        max-height: calc(100vh - 110px);
+        border-radius: 16px;
+    }
+}
+
+/* ================= SMART RESPONSIVE — MOBILE ================= */
+@media (max-width: 480px) {
+    .header {
+        padding: 0.9rem 1.2rem;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    .nav-menu {
+        top: 60px;
+        width: 80%;
+        max-width: 280px;
+        height: calc(100vh - 60px);
+        padding: 1.5rem;
+    }
+
+    .nav-menu a {
+        padding: 13px 0;
+        font-size: 1rem;
+    }
+
+    .main-wrapper {
+        margin-top: 60px;
+    }
+
+    .container, .container-login {
+        width: 96%;
+        padding: 20px 14px;
+        margin: 18px auto;
+        border-radius: 12px;
+    }
+
+    h2 { 
+        font-size: 1.15rem; 
+        margin-bottom: 15px; 
+        padding-bottom: 10px;
+    }
+
+    h3 { 
+        font-size: 1rem; 
+        margin-bottom: 12px; 
+        padding-bottom: 8px;
+    }
+
+    /* Form */
+    input, select, textarea {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+
+    label {
+        font-size: 0.72rem;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        border-radius: 8px;
+    }
+
+    /* Laporan */
+    .container-report-wrapper {
+        padding: 0 8px;
+    }
+
     .report-card-container {
-        padding: 25px 20px;
+        padding: 18px 14px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+
+    .report-card-title {
+        font-size: 1.1rem;
+    }
+
+    .report-card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
+
+    .custom-form-group {
+        margin-bottom: 16px;
+    }
+
+    .custom-form-group label {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .upload-area {
+        min-height: 130px;
+        border-radius: 10px;
+    }
+
+    .upload-text {
+        padding: 14px;
+    }
+
+    .upload-text-title {
+        font-size: 0.85rem;
+    }
+
+    .upload-text-sub {
+        font-size: 0.7rem;
+    }
+
+    .enhanced-btn-submit {
+        padding: 14px !important;
+        font-size: 0.82rem !important;
+        letter-spacing: 1.5px !important;
+    }
+
+    /* Postingan */
+    .posts-container {
+        padding: 0 6px;
+        margin: 15px auto;
+    }
+
+    .post-card {
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+
+    .post-header {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .profile-pic {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .post-user h4 {
+        font-size: 0.9rem;
+    }
+
+    .post-user span {
+        font-size: 0.72rem;
+    }
+
+    .post-content {
+        padding: 14px;
+    }
+
+    .post-content p {
+        font-size: 0.87rem;
+        line-height: 1.5;
+    }
+
+    .post-image img {
+        max-height: 240px;
+    }
+
+    .badge {
+        padding: 4px 10px;
+        font-size: 0.68rem;
+    }
+
+    /* Profil tim */
+    .team-hero {
+        padding: 20px 5px 5px;
+    }
+
+    .team-hero-badge {
+        font-size: 9px;
+        padding: 5px 12px;
+        letter-spacing: 0.8px;
+        margin-bottom: 16px;
+    }
+
+    .team-hero h2 {
+        font-size: 1.35rem;
+    }
+
+    .team-hero-tagline {
+        font-size: 0.85rem;
+    }
+
+    .team-hero-description {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+
+    .team-hero-stack {
+        gap: 5px;
+        margin-top: 14px;
+    }
+
+    .stack-chip {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
+
+    .team-divider {
+        width: 45px;
+        height: 2px;
+        margin: 20px auto 8px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .profil-card {
+        padding: 20px 10px;
+        border-radius: 12px;
+    }
+
+    .profil-photo-wrapper {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 12px auto;
+    }
+
+    .profil-photo {
+        width: 72px;
+        height: 72px;
+        border-width: 2px;
+    }
+
+    .profil-photo-wrapper::after {
+        width: 12px;
+        height: 12px;
+        border-width: 2px;
+        bottom: 4px;
+        right: 4px;
+    }
+
+    .profil-name {
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+    }
+
+    .profil-role {
+        font-size: 0.7rem;
+    }
+
+    /* Panduan */
+    .guideline-item {
+        padding: 12px;
+        gap: 10px;
+        border-radius: 10px;
+    }
+
+    .guideline-step {
+        width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+    }
+
+    .guideline-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Auth */
+    .auth-container {
+        padding: 25px 18px;
+        border-radius: 16px;
+        margin: 20px auto;
+    }
+
+    .auth-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-container p {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+    }
+
+    .auth-btn-submit {
+        padding: 14px !important;
+        font-size: 0.82rem !important;
+    }
+
+    .alert-box {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+
+    /* Footer */
+    .footer-copyright {
+        padding: 15px 12px;
+    }
+
+    .footer-copyright p {
+        font-size: 0.72rem;
+    }
+
+    .footer-copyright .footer-sub {
+        font-size: 0.65rem;
+    }
+
+    /* Chatbot fullscreen di mobile kecil */
+    .chatbot-window {
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .chatbot-toggle {
+        bottom: 16px;
+        right: 16px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .chatbot-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+        top: -3px;
+        right: -3px;
+    }
+}
+
+/* ================= SMART RESPONSIVE — VERY SMALL ================= */
+@media (max-width: 360px) {
+    .logo {
+        font-size: 1.2rem;
+        letter-spacing: 1.5px;
+    }
+
+    .nav-menu {
+        width: 85%;
+        padding: 1.2rem;
+    }
+
+    .container, .container-login {
+        padding: 16px 12px;
+    }
+
+    .team-hero h2 {
+        font-size: 1.2rem;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .profil-card {
+        padding: 18px 14px;
+    }
+
+    .profil-photo-wrapper {
+        width: 65px;
+        height: 65px;
+    }
+
+    .profil-photo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .report-card-container {
+        padding: 16px 12px;
+    }
+
+    .report-card-title {
+        font-size: 1.05rem;
     }
 }
 
 /* ================= COPYRIGHT FOOTER STYLE ================= */
 .footer-copyright {
-    margin-top: auto; /* Memaksa footer menempel pas di bawah batas akhir konten aktif */
+    margin-top: auto; 
     padding: 25px 20px;
     text-align: center;
     background: rgba(6, 12, 22, 0.4);
@@ -803,15 +1558,366 @@ div[style*="display: flex"] {
     color: rgba(143, 160, 181, 0.6);
 }
 
-@media (max-width: 768px) {
-    .footer-copyright {
-        margin-top: 40px;
-        padding: 20px 15px;
-    }
-    .footer-copyright p {
-        font-size: 0.8rem;
-    }
-    .footer-copyright .footer-sub {
-        font-size: 0.75rem;
-    }
+/* ============================================
+   CHATBOT WIDGET — LostTrack AI Assistant
+   ============================================ */
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 28px rgba(14,165,233,.45);
+    transition: transform .25s, box-shadow .25s;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 36px rgba(14,165,233,.6);
+}
+
+.chatbot-toggle .toggle-close {
+    display: none;
+}
+
+.chatbot-toggle.active .toggle-icon {
+    display: none;
+}
+
+.chatbot-toggle.active .toggle-close {
+    display: inline;
+}
+
+.chatbot-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.2); }
+}
+
+.chatbot-toggle.active .chatbot-badge {
+    display: none;
+}
+
+.chatbot-window {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    z-index: 9998;
+    width: 400px;
+    max-width: calc(100vw - 32px);
+    height: 540px;
+    max-height: calc(100vh - 140px);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    transform: translateY(20px) scale(.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s;
+}
+
+.chatbot-window.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.chatbot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+}
+
+.chatbot-header-info {
+    flex: 1;
+}
+
+.chatbot-header-info h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.chatbot-header-info .status-line {
+    font-size: 11px;
+    color: rgba(255,255,255,.7);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.chatbot-header-info .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    display: inline-block;
+    animation: badgePulse 2s infinite;
+}
+
+.chatbot-header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.chatbot-header-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+}
+
+.chatbot-header-actions button:hover {
+    background: rgba(255,255,255,.3);
+}
+
+.chatbot-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+}
+
+.chatbot-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chatbot-body::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.15);
+    border-radius: 4px;
+}
+
+.chat-msg {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    word-break: break-word;
+    animation: msgIn .3s ease;
+}
+
+@keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.chat-msg.bot {
+    align-self: flex-start;
+    background: #1e293b;
+    color: #e2e8f0;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-msg.bot b,
+.chat-msg.bot strong {
+    color: #38bdf8;
+}
+
+.chat-msg.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-msg .msg-time {
+    display: block;
+    font-size: 10px;
+    margin-top: 6px;
+    opacity: .45;
+    text-align: right;
+}
+
+.chat-msg .msg-source {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.07);
+    color: #64748b;
+    margin-top: 6px;
+}
+
+.chat-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.chat-quick-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(14,165,233,.4);
+    background: rgba(14,165,233,.08);
+    color: #38bdf8;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background .2s, color .2s, border-color .2s;
+    font-family: inherit;
+}
+
+.chat-quick-btn:hover {
+    background: #0ea5e9;
+    color: #fff;
+    border-color: #0ea5e9;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 14px 18px;
+    align-self: flex-start;
+    background: #1e293b;
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #64748b;
+    animation: typingBounce .6s infinite alternate;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: .15s; }
+.typing-indicator span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes typingBounce {
+    from { transform: translateY(0); opacity: .4; }
+    to   { transform: translateY(-5px); opacity: 1; }
+}
+
+.chatbot-footer {
+    padding: 12px 14px;
+    background: #1e293b;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.chatbot-footer input {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: #0f172a;
+    color: #e2e8f0;
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color .2s;
+    font-family: inherit;
+}
+
+.chatbot-footer input::placeholder {
+    color: #64748b;
+}
+
+.chatbot-footer input:focus {
+    border-color: #0ea5e9;
+}
+
+.chatbot-footer input:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.chatbot-footer button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s, opacity .2s;
+}
+
+.chatbot-footer button:hover {
+    transform: scale(1.1);
+}
+
+.chatbot-footer button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chat-error-banner {
+    background: rgba(239,68,68,.12);
+    border: 1px solid rgba(239,68,68,.3);
+    color: #fca5a5;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-align: center;
 }

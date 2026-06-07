@@ -1,4 +1,6 @@
-<?php require 'koneksi.php'; ?>
+<?php 
+require 'koneksi.php'; 
+?>
 <?php
 // Proses submit laporan oleh user biasa
 $pesanTipe = '';
@@ -78,10 +80,7 @@ if (isset($_POST['kirim_laporan']) && sudahLogin() && !isAdmin()) {
 
     <div class="main-wrapper">
         
-        <?php
-        // ── FORM BUAT LAPORAN — hanya tampil untuk user biasa yang sudah login ──
-        if (sudahLogin() && !isAdmin()):
-        ?>
+        <?php if (sudahLogin() && !isAdmin()): ?>
         <div class="container-report-wrapper">
 
             <?php if ($pesanTeks): ?>
@@ -182,28 +181,39 @@ if (isset($_POST['kirim_laporan']) && sudahLogin() && !isAdmin()) {
 
         <footer class="footer-copyright">
             <p>&copy; 2026 <span class="brand-glow">LostTrack</span> System. All Rights Reserved.</p>
-            <p class="footer-sub">Designed & Engineered by Ibren, Miracle, Heavenly, and Anggreini</p>
         </footer>
 
     </div>
 
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Buka chatbot">
+        <span class="toggle-icon">💬</span>
+        <span class="toggle-close">✕</span>
+        <span class="chatbot-badge">1</span>
+    </button>
+
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div class="chatbot-avatar">🤖</div>
+            <div class="chatbot-header-info">
+                <h4>LostTrack Assistant</h4>
+                <span class="status-line">
+                    <span class="status-dot"></span>
+                    Online — AI Powered
+                </span>
+            </div>
+            <div class="chatbot-header-actions">
+                <button id="chatClearBtn" title="Bersihkan chat">🔄</button>
+            </div>
+        </div>
+
+        <div class="chatbot-body" id="chatbotBody"></div>
+
+        <div class="chatbot-footer">
+            <input type="text" id="chatInput" placeholder="Ketik pesan..." autocomplete="off" maxlength="1000">
+            <button id="chatSendBtn" aria-label="Kirim pesan">➤</button>
+        </div>
+    </div>
+
     <script src="assets/js/script.js"></script>
-    <script>
-        const imgInput = document.getElementById('imageUpload');
-        const imgPreview = document.getElementById('previewImage');
-        if(imgInput && imgPreview) {
-            imgInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.addEventListener('load', function() {
-                        imgPreview.setAttribute('src', this.result);
-                        imgPreview.style.display = 'block';
-                    });
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-    </script>
 </body>
 </html>

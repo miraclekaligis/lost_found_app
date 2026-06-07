@@ -126,7 +126,7 @@ $old = [
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="auth-page-body">
-    <div class="auth-container">
+    <div class="auth-container" style="text-align: center;">
         <h2>📝 Buat Akun</h2>
         <p>Silakan isi data berikut untuk mendaftar</p>
 
@@ -136,7 +136,7 @@ $old = [
             </div>
         <?php endif; ?>
 
-        <form action="" method="POST">
+        <form action="" method="POST" style="text-align: left;">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" placeholder="Pilih username unik..." value="<?= $old['username'] ?>" required autocomplete="off">
@@ -153,10 +153,17 @@ $old = [
                 <label>Konfirmasi Password</label>
                 <input type="password" name="confirm_password" placeholder="Ulangi password..." required>
             </div>
-            <button type="submit" name="register" class="btn auth-btn-submit">Daftar Sekarang</button>
+            <button type="submit" name="register" class="btn auth-btn-submit" style="width: 100%;">Daftar Sekarang</button>
         </form>
-        <div class="auth-link">
+        
+        <div class="auth-link" style="margin-top: 15px;">
             Sudah punya akun? <a href="login">Login di sini</a>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+            <a href="/" class="btn-kembali" style="text-decoration: none; color: #666; font-size: 14px; display: inline-flex; align-items: center; gap: 5px;">
+                ⬅️ Kembali ke Beranda
+            </a>
         </div>
     </div>
     <script src="assets/js/script.js"></script>

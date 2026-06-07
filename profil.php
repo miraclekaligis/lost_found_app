@@ -9,9 +9,7 @@
 <body>
     <header class="header">
         <nav class="navbar">
-            <div class="logo">
-                LOSTTRACK
-            </div>
+            <div class="logo">LOSTTRACK</div>
             <div class="nav-menu">
                 <a href="/">Beranda</a>
                 <a href="profil">Profil</a>
@@ -28,40 +26,87 @@
 
     <div class="main-wrapper">
         
-        <div class="container" style="text-align: center;">
-            <h2>Anggota Tim Proyek</h2>
-            <p style="color: #a0b2c6; margin-bottom: 40px;">Sistem "Lost & Found" ini di-develop secara native (Vanilla HTML, CSS, JS, PHP) tanpa framework oleh:</p>
-            
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-                <div class="profil-card">
-                    <div style="font-size: 3em; margin-bottom: 10px;">👨‍💻</div>
-                    <h3 style="border:none; padding:0; margin-bottom:5px;">Ibren Ginting</h3>
-                    <p style="color: #4da8da; font-weight: bold; font-size: 0.9em;">Fullstack Developer</p>
+        <div class="container team-section">
+
+            <div class="team-hero">
+                <div class="team-hero-badge">
+                    🛡️ Core Development Team
                 </div>
+
+                <h2>Siapa Di Balik <span>LostTrack</span>?</h2>
+
+                <p class="team-hero-tagline">
+                    "Empat otak, satu misi - mempertemukan yang hilang dengan yang menemukan."
+                </p>
+
                 
-                <div class="profil-card">
-                    <div style="font-size: 3em; margin-bottom: 10px;">👨‍💻</div>
-                    <h3 style="border:none; padding:0; margin-bottom:5px;">Miracle Kaligis</h3>
-                    <p style="color: #4da8da; font-weight: bold; font-size: 0.9em;">Fullstack Developer</p>
+
+                <div class="team-hero-stack">
+                    <span class="stack-chip">🌐 HTML</span>
+                    <span class="stack-chip">🎨 CSS</span>
+                    <span class="stack-chip">⚡ JavaScript</span>
+                    <span class="stack-chip">🐘 PHP</span>
+                    <span class="stack-chip">🗄️ MySQL</span>
                 </div>
-                
+            </div>
+
+            <div class="team-divider"></div>
+
+            <div class="team-grid">
+
                 <div class="profil-card">
-                    <div style="font-size: 3em; margin-bottom: 10px;">👨‍💻</div>
-                    <h3 style="border:none; padding:0; margin-bottom:5px;">Heavenly Kawatu</h3>
-                    <p style="color: #4da8da; font-weight: bold; font-size: 0.9em;">Fullstack Developer</p>
+                    <div class="profil-photo-wrapper">
+                        <img 
+                            src="https://ui-avatars.com/api/?name=Ibren+Ginting&background=0f2744&color=4da8da&size=220&bold=true&font-size=0.38" 
+                            alt="Foto Ibren Ginting" 
+                            class="profil-photo"
+                        >
+                    </div>
+                    <h3 class="profil-name">Ibren Ginting</h3>
+                    <p class="profil-role">🎨 Front-End Architect</p>
                 </div>
 
                 <div class="profil-card">
-                    <div style="font-size: 3em; margin-bottom: 10px;">👩‍💻</div>
-                    <h3 style="border:none; padding:0; margin-bottom:5px;">Anggreini Lumi</h3>
-                    <p style="color: #4da8da; font-weight: bold; font-size: 0.9em;">Fullstack Developer</p>
+                    <div class="profil-photo-wrapper">
+                        <img 
+                            src="https://ui-avatars.com/api/?name=Miracle+Kaligis&background=0f2744&color=4da8da&size=220&bold=true&font-size=0.38" 
+                            alt="Foto Miracle Kaligis" 
+                            class="profil-photo"
+                        >
+                    </div>
+                    <h3 class="profil-name">Miracle Kaligis</h3>
+                    <p class="profil-role">🖥️ DevOps & Security Engineer</p>
                 </div>
+
+                <div class="profil-card">
+                    <div class="profil-photo-wrapper">
+                        <img 
+                            src="https://ui-avatars.com/api/?name=Heavenly+Kawatu&background=0f2744&color=4da8da&size=220&bold=true&font-size=0.38" 
+                            alt="Foto Heavenly Kawatu" 
+                            class="profil-photo"
+                        >
+                    </div>
+                    <h3 class="profil-name">Heavenly Kawatu</h3>
+                    <p class="profil-role">💻 Back-End & Database Architect</p>
+                </div>
+
+                <div class="profil-card">
+                    <div class="profil-photo-wrapper">
+                        <img 
+                            src="https://ui-avatars.com/api/?name=Anggreini+Lumi&background=0f2744&color=4da8da&size=220&bold=true&font-size=0.38" 
+                            alt="Foto Anggreini Lumi" 
+                            class="profil-photo"
+                        >
+                    </div>
+                    <h3 class="profil-name">Anggreini Lumi</h3>
+                    <p class="profil-role">✨ UX Strategist & QA Lead</p>
+                </div>
+
             </div>
         </div>
 
         <footer class="footer-copyright">
             <p>&copy; 2026 <span class="brand-glow">LostTrack</span> System. All Rights Reserved.</p>
-            <p class="footer-sub">Designed & Engineered by Ibren, Miracle, Heavenly, and Anggreini</p>
         </footer>
 
     </div>

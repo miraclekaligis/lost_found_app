@@ -35,9 +35,9 @@ if (isset($_POST['login'])) {
 
             // Admin ke dashboard, member ke beranda
             if ($row['role'] === 'admin') {
-                header("Location: dashboard.php");
+                header("Location: dashboard");
             } else {
-                header("Location: index.php");
+                header("Location: /");
             }
             exit;
         }
@@ -68,8 +68,15 @@ if (isset($_POST['login'])) {
             <input type="password" name="password" placeholder="Masukkan password..." required>
             <button type="submit" name="login" class="btn" style="margin-top:10px; width:100%;">Login</button>
         </form>
+        
         <div class="auth-link" style="margin-top: 15px;">
             Belum punya akun? <a href="register">Daftar Sekarang</a>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+            <a href="/" class="btn-kembali" style="text-decoration: none; color: #666; font-size: 14px; display: inline-flex; align-items: center; gap: 5px;">
+                ⬅️ Kembali ke Beranda
+            </a>
         </div>
     </div>
     <script src="assets/js/script.js"></script>
