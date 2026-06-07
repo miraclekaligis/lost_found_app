@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Tim Developer</title>
+    <title>Profil Tim Developer - TemuBarang</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
-            <div class="logo">LOSTTRACK</div>
+            <div class="logo">TemuBarang</div>
             <div class="nav-menu">
                 <a href="/">Beranda</a>
                 <a href="profil">Profil</a>
                 <a href="panduan">Panduan</a>
-                <a href="dashboard">Login</a>
+                <a href="login">Login</a>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -33,13 +33,11 @@
                     🛡️ Core Development Team
                 </div>
 
-                <h2>Siapa Di Balik <span>LostTrack</span>?</h2>
+                <h2>Siapa Di Balik <span>TemuBarang</span>?</h2>
 
                 <p class="team-hero-tagline">
                     "Empat otak, satu misi - mempertemukan yang hilang dengan yang menemukan."
                 </p>
-
-                
 
                 <div class="team-hero-stack">
                     <span class="stack-chip">🌐 HTML</span>
@@ -106,7 +104,7 @@
         </div>
 
         <footer class="footer-copyright">
-            <p>&copy; 2026 <span class="brand-glow">LostTrack</span> System. All Rights Reserved.</p>
+            <p>&copy; 2026 <span class="brand-glow">TemuBarang</span> System. All Rights Reserved.</p>
         </footer>
 
     </div>

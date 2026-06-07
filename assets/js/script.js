@@ -46,29 +46,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // 4. Fitur Toggle (Buka/Tutup) Form Laporan Baru
+    // ==========================================
+    const toggleBtn = document.getElementById('toggleFormBtn');
+    const formWrapper = document.getElementById('formReportWrapper');
+
+    if (toggleBtn && formWrapper) {
+        // Cek status saat halaman dimuat (jika ada error, form terbuka)
+        if (formWrapper.style.display !== 'none') {
+            toggleBtn.innerHTML = '❌ Batal Buat Laporan';
+            toggleBtn.style.background = 'linear-gradient(135deg, var(--danger) 0%, #b82230 100%)';
+            toggleBtn.style.color = 'var(--text-main)';
+        }
+
+        // Event saat tombol ditekan
+        toggleBtn.addEventListener('click', () => {
+            if (formWrapper.style.display === 'none') {
+                // Buka Form
+                formWrapper.style.display = 'block';
+                toggleBtn.innerHTML = '❌ Batal Buat Laporan';
+                toggleBtn.style.background = 'linear-gradient(135deg, var(--danger) 0%, #b82230 100%)';
+                toggleBtn.style.color = 'var(--text-main)';
+            } else {
+                // Tutup Form
+                formWrapper.style.display = 'none';
+                toggleBtn.innerHTML = '➕ Buat Laporan Kehilangan / Penemuan';
+                toggleBtn.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)';
+                toggleBtn.style.color = '#030914';
+            }
+        });
+    }
+
     // ============================================================
-    // 4. CHATBOT ENGINE — AI Powered via assets/api.php
+    // 5. CHATBOT ENGINE — AI Powered via assets/api.php
     // ============================================================
     (() => {
         const API_URL    = 'assets/api.php';
-        const toggleBtn  = document.getElementById('chatbotToggle');
+        const toggleBtnChat  = document.getElementById('chatbotToggle');
         const chatWindow = document.getElementById('chatbotWindow');
         const chatBody   = document.getElementById('chatbotBody');
         const chatInput  = document.getElementById('chatInput');
         const chatSend   = document.getElementById('chatSendBtn');
         const chatClear  = document.getElementById('chatClearBtn');
 
-        // Jika element chatbot tidak ada di halaman ini, lewati fungsi ini saja
-        if (!toggleBtn || !chatWindow || !chatBody || !chatInput || !chatSend || !chatClear) return;
+        if (!toggleBtnChat || !chatWindow || !chatBody || !chatInput || !chatSend || !chatClear) return;
 
         let isOpen = false;
         let isBusy = false;
 
         // --- Toggle buka/tutup ---
-        toggleBtn.addEventListener('click', function() {
+        toggleBtnChat.addEventListener('click', function() {
             isOpen = !isOpen;
-            chatWindow.classList.toggle('open', isOpen);
-            toggleBtn.classList.toggle('active', isOpen);
+            chatWindow.classList.toggle('active', isOpen); 
+            toggleBtnChat.classList.toggle('active', isOpen);
             if (isOpen) chatInput.focus();
         });
 
@@ -193,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// 5. Konfirmasi Hapus Data Dinamis
+// 6. Konfirmasi Hapus Data Dinamis
 // ==========================================
 function konfirmasiHapus(namaBarang) {
     return confirm(`⚠️ PERINGATAN!\n\nApakah Anda yakin ingin menghapus data: ${namaBarang}?\nTindakan ini tidak bisa dibatalkan.`);
