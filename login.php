@@ -11,21 +11,39 @@ if (sudahLogin()) {
     exit;
 }
 
-$error = false;
+ $error = false;
+ $error_msg = '';
 
 if (isset($_POST['login'])) {
-    // Gunakan trim() untuk menghapus spasi tidak sengaja di awal/akhir input
     $usernameInput = trim($_POST['username'] ?? '');
     $passwordInput = $_POST['password'] ?? '';
 
-    $stmt = mysqli_prepare($conn, "SELECT id, username, password, role FROM users WHERE username = ?");
+    // ============================================================
+    // TAMBAHKAN email DAN is_verified DI SELECT
+    // ============================================================
+    $stmt = mysqli_prepare($conn, "SELECT id, username, email, password, role, is_verified FROM users WHERE username = ?");
     mysqli_stmt_bind_param($stmt, "s", $usernameInput);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($passwordInput, $row['password'])) {
-            // Regenerate session ID — cegah session fixation
+
+            // ============================================================
+            // CEK APAKAH AKUN SUDAH DIVERIFIKASI OTP
+            // ============================================================
+            if ($row['is_verified'] != 1) {
+                // Simpan email ke session agar halaman verifikasi tahu siapa user-nya
+                $_SESSION['email_verifikasi'] = $row['email'];
+
+                // Tendang ke halaman verifikasi OTP
+                header("Location: verifikasi");
+                exit;
+            }
+
+            // ============================================================
+            // AKUN TERVERIFIKASI — LANJUT LOGIN
+            // ============================================================
             session_regenerate_id(true);
 
             $_SESSION['login']    = true;
@@ -33,7 +51,6 @@ if (isset($_POST['login'])) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['role']     = $row['role'];
 
-            // Admin ke dashboard, member ke beranda
             if ($row['role'] === 'admin') {
                 header("Location: dashboard");
             } else {

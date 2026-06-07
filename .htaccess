@@ -1,25 +1,52 @@
-# ====================================================================
-# LOSTTRACK URL REWRITE
-# ====================================================================
+# Matikan fitur melihat isi folder (Directory Listing)
+Options -Indexes
+# (Opsional) Matikan MultiViews jika didukung server
+Options -MultiViews 
 
 RewriteEngine On
-
-# Nonaktifkan directory listing
-Options -Indexes
-
-# Halaman utama
 DirectoryIndex index.php index.html
 
-# -------------------------------------------------
-# Hilangkan ekstensi .php
-# -------------------------------------------------
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^([^/.]+)$ $1.php [L]
+# ==========================================
+# 0. BLOKIR AKSES LANGSUNG KE SCRIPT.JS
+# ==========================================
+# Jika request BUKAN datang dari sigalilea.biz.id ATAU localhost
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?sigalilea\.biz\.id [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?localhost [NC]
+# Maka lempar semua akses file .js atau .css di dalam src/backend/ ke halaman 404
+RewriteRule ^src/backend/.*\.(js|css)$ /404/index.html [L,NC]
 
-# -------------------------------------------------
-# Hilangkan ekstensi .html
-# -------------------------------------------------
-RewriteCond %{REQUEST_FILENAME} !-d
+# ==========================================
+# 1. ATURAN ERROR 404 KE FOLDER
+# ==========================================
+ErrorDocument 404 /404/index.html
+
+# ==========================================
+# 2. BLOKIR HALAMAN RAHASIA & ARAHKAN KE FOLDER 404
+# ==========================================
+RewriteRule ^(data-wajah|rekam-wajah|scan-wajah)(\.php)?$ /404/index.html [L,NC]
+RewriteRule ^scan(\.html)?$ /404/index.html [L,NC]
+
+# Izinkan akses murni ke api.php
+RewriteRule ^api\.php$ - [L,NC]
+
+# ==========================================
+# 3. URL FRIENDLY (HILANGKAN .PHP & .HTML)
+# ==========================================
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([A-Za-z0-9_-]+)/?$ $1.php [L,NC]
+
 RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^/.]+)$ $1.html [L]
+RewriteRule ^([A-Za-z0-9_-]+)/?$ $1.html [L,NC]
+
+# ==========================================
+# 4. ATURAN PAMUNGKAS (CATCH-ALL 404)
+# ==========================================
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /404/index.html [L,NC]
+php_value date.timezone Asia/Makassar
+php_value display_errors On

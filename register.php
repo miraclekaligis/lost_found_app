@@ -75,16 +75,16 @@ if (isset($_POST['register'])) {
                     ];
 
                     // Pengaturan Pengirim & Penerima
-                    $mail->setFrom('officialmiraclekaligis@gmail.com', 'LostTrack System');
+                    $mail->setFrom('officialmiraclekaligis@gmail.com', 'TemuBarang System');
                     $mail->addAddress($email, $username);
 
                     // Konten Isi Email
                     $mail->isHTML(true);
-                    $mail->Subject = 'Kode OTP Verifikasi Akun - LostTrack';
+                    $mail->Subject = 'Kode OTP Verifikasi Akun - TemuBarang';
                     $mail->Body    = "
                         <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #111a2c; color: #fff; border-radius: 10px;'>
                             <h2 style='color: #00f2fe;'>Halo, ".htmlspecialchars($username)."!</h2>
-                            <p>Terima kasih telah bergabung di LostTrack. Gunakan kode OTP di bawah ini untuk memverifikasi pendaftaran akun Anda:</p>
+                            <p>Terima kasih telah bergabung di TemuBarang. Gunakan kode OTP di bawah ini untuk memverifikasi pendaftaran akun Anda:</p>
                             <div style='font-size: 28px; font-weight: bold; color: #030914; padding: 15px; background: #00f2fe; display: inline-block; border-radius: 5px; letter-spacing: 5px; margin: 15px 0;'>$otp_code</div>
                             <p style='color: #ff4a5a;'>⚠️ Kode ini hanya berlaku selama 5 menit.</p>
                             <p style='font-size: 0.85em; color: #8fa0b5;'>Jika Anda tidak merasa mendaftar di platform kami, harap abaikan email ini.</p>
@@ -122,7 +122,7 @@ $old = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrasi Akun - LostTrack</title>
+    <title>Registrasi Akun - TemuBarang</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="auth-page-body">
