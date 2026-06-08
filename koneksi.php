@@ -1,6 +1,6 @@
 <?php
 session_start();
-date_default_timezone_set('Asia/Makassar'); // <-- Tambahkan ini (sesuaikan dengan 'Asia/Jakarta' atau 'Asia/Jayapura' jika perlu)
+date_default_timezone_set('Asia/Makassar');
 
 $host = "sql203.infinityfree.com";
 $user = "if0_39547178";
@@ -14,8 +14,6 @@ if (!$conn) {
 }
 
 mysqli_set_charset($conn, "utf8mb4");
-
-// ... (sisa kode helper ke bawah sudah sempurna, tidak perlu diubah)
 
 // -------------------------------------------------------
 // Helper: cek apakah user sudah login

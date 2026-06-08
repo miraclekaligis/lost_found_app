@@ -39,7 +39,7 @@ if (isset($_POST['verify'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi OTP - LostTrack</title>
+    <title>Verifikasi OTP - TemuBarang</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;" class="auth-page-body">

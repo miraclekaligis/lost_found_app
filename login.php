@@ -1,6 +1,5 @@
 <?php
 require 'koneksi.php';
-
 // Jika sudah login, tendang ke halaman yang sesuai dengan role-nya
 if (sudahLogin()) {
     if (isAdmin()) {

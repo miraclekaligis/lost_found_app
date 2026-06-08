@@ -59,9 +59,9 @@ if (isset($_POST['register'])) {
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
                     $mail->Username   = 'officialmiraclekaligis@gmail.com'; 
-                    $mail->Password   = 'bxckkonpoqcvwihl'; // Pastikan 16 Karakter App Password Akurat
+                    $mail->Password   = 'bxckkonpoqcvwihl';
                     
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Menggunakan SMTPS (Lebih stabil di Localhost)
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                     $mail->Port       = 465;
                     $mail->Timeout    = 30; 
 
