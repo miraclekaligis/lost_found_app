@@ -1,11 +1,16 @@
 <?php
 session_start();
 date_default_timezone_set('Asia/Makassar');
-
+//HOSTING
 $host = "sql203.infinityfree.com";
 $user = "if0_39547178";
 $pass = "dede13042006";
 $db   = "if0_39547178_lost_found_db";
+//XAMPP
+//$host = "localhost";
+//$user = "root";
+//$pass = "";
+//$db   = "lost_found_db";
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 

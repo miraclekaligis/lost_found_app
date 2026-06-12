@@ -9,7 +9,6 @@ DirectoryIndex index.php index.html
 # ==========================================
 # 0. BLOKIR AKSES LANGSUNG KE SCRIPT.JS
 # ==========================================
-# Jika request BUKAN datang dari sigalilea.biz.id ATAU localhost
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?sigalilea\.biz\.id [NC]
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?localhost [NC]
 # Maka lempar semua akses file .js atau .css di dalam src/backend/ ke halaman 404
